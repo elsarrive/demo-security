@@ -4,16 +4,12 @@ on:
         branches: [main]
 
 jobs:
-    recuperer-code-depot:
+    build-and-bandit:
         runs-on: windows-latest
         steps: 
             - name: recup depot
               uses: actions/checkout@v7
 
-
-    setup:
-        runs-on: windows-latest
-        steps: 
             - name: créer un venv
               run:  python -m venv venv
 
@@ -23,11 +19,9 @@ jobs:
 
             - name: installation requirements 
               run: pip install -r requirements.txt
-    
+
+
               
-    bandit: 
-        runs-on: windows-latest
-        steps: 
             - name: installation package bandit 
               run: pip install bandit
 
