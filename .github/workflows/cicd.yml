@@ -4,8 +4,32 @@ on:
         branches: [main]
 
 jobs:
-    job1:
-        runs-on: ubuntu-latest
-        steps:
-            - name: step 1
-              run: echo "Hello world !!"
+    recuperer-code-depot:
+        runs-on: windows-latest
+        steps: 
+            - name: recup depot
+              uses: actions/checkout@v7
+
+
+    setup:
+        runs-on: windows-latest
+        steps: 
+            - name: créer un venv
+              run:  python -m venv venv
+
+            - name: activer le venv
+            # powershell
+              run: venv\Scripts\Activate.ps1 
+
+            - name: installation requirements 
+              run: pip install -r requirements.txt
+    
+              
+    bandit: 
+        runs-on: windows-latest
+        steps: 
+            - name: installation package bandit 
+              run: pip install bandit
+
+            - name: demarrer bandit 
+              run: bandit -r main.py
