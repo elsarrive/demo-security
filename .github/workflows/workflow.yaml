@@ -1,0 +1,34 @@
+name: cicd
+on:
+    push:
+        branches: [main]
+
+jobs:
+    bandit-scan: 
+        runs-on: ubuntu-latest
+        steps:
+            - name: recup depot
+              uses: actions/checkout@v7
+
+            - name: Set up Python
+        # This is the version of the action for setting up Python, not the Python version.
+              uses: actions/setup-python@v7
+              with: 
+                python-version: '3.14'
+
+            - name: installation package bandit 
+              run: pip install bandit
+
+            - name: run bandit 
+              run: bandit -r . -x venv/
+
+    zap-scan:         
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo 42
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: [bandit-scan, zap-scan]
+        steps:
+            - run: echo 42
